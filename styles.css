@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.calendar-container {
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  /* Ortalamak için center yap */
+    margin-bottom: 20px;
+    position: relative;  /* Position relative ekle */
+}
+
+.nav-button {
+    background: transparent;
+    border: 2px solid #4CAF50;
+    color: #4CAF50;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    width: auto;
+}
+
+.nav-button.arrow {
+    width: 70px;
+    background: transparent;
+    font-size: 24px;
+    color: #4CAF50;
+    border: none;
+}
+
+.current-date {
+    position: absolute;  /* Mutlak pozisyon */
+    left: 50%;          /* Ortaya al */
+    transform: translateX(-50%);  /* Tam ortalama */
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    top: 15px;          /* Desktop için de üstten boşluk */
+}
+
+.right-buttons {
+    display: flex;
+    flex-direction: column;  /* Dikey hizalama */
+    gap: 15px;  /* Butonlar arası boşluğu artır */
+    align-items: flex-end;  /* Sağa hizala */
+}
+
+.events-list {
+    margin: 20px 0;
+}
+
+.event-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.event-item a {
+    color: #333;
+    text-decoration: none;
+}
+
+.event-detail-link {
+    color: #4CAF50;  /* Yeşil renk */
+    text-decoration: none;  /* Altı çizgiyi kaldır */
+    font-size: 0.9em;
+    cursor: pointer;
+    background: transparent;
+}
+
+.calendar-overview {
+    display: none; /* Varsayılan olarak gizli */
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.calendar-overview.visible {
+    display: grid; /* Görünür olduğunda grid olarak göster */
+}
+
+.calendar-day {
+    height: 58px; /* 45px'den %30 artış */
+    aspect-ratio: unset; /* aspect-ratio'yu kaldır */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.calendar-day.weekday {
+    height: 32px; /* 25px'den %30 artış */
+    aspect-ratio: unset;
+}
+
+.calendar-day:empty {
+    border: none;
+    cursor: default;
+}
+
+.has-event::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    width: 6px;
+    height: 6px;
+    background: #4CAF50;
+    border-radius: 50%;
+}
+
+@media (max-width: 600px) {
+    .calendar-container {
+        padding: 10px;
+    }
+
+    .current-date {
+        font-size: 1.2em;
+        top: 15px;  /* Mobilde üstten boşluk */
+    }
+
+    .calendar-overview {
+        gap: 2px;
+        margin-top: 10px;
+    }
+
+    .calendar-day {
+        height: 40px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+
+    .calendar-day.weekday {
+        height: 25px;
+        font-size: 11px;
+    }
+}
