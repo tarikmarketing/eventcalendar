@@ -4,7 +4,7 @@ let currentDisplayMonth = new Date();
 
 async function fetchEvents() {
     try {
-        const response = await fetch('eventdata.json');
+        const response = await fetch('https://cdn.jsdelivr.net/gh/tarikmarketing/eventcalendar/eventdata.json');
         events = await response.json();
         showCalendarView();
     } catch (error) {
