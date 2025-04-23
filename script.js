@@ -2,12 +2,18 @@ let events = {};
 let currentDate = new Date();
 let currentDisplayMonth = new Date();
 
-const EVENT_DATA_URL = 'https://cdn.jsdelivr.net/gh/tarikmarketing/eventcalendar/eventdata.json';
-
 async function fetchEvents() {
     try {
-        const response = await fetch('EVENT_DATA_URL');
+        // Direkt CDN'den yükle
+        const response = await fetch('https://cdn.jsdelivr.net/gh/tarikmarketing/eventcalendar@main/eventdata.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         events = await response.json();
+        console.log('Loaded events:', events);
+        
+        // Takvimi güncelle
+        updateCalendar();
         showCalendarView();
     } catch (error) {
         console.error('Events yüklenirken hata:', error);
@@ -110,12 +116,16 @@ function navigateDay(offset) {
 }
 
 function showCalendarView() {
-    currentDisplayMonth = new Date();
-    
+    const eventsList = document.getElementById('eventsList');
     const overview = document.getElementById('calendarOverview');
     const currentDateElement = document.getElementById('currentDate');
-    const eventsList = document.getElementById('eventsList');
     
+    if (!eventsList || !overview || !currentDateElement) {
+        console.error('Required elements not found');
+        return;
+    }
+    
+    currentDisplayMonth = new Date();
     overview.classList.add('visible');
     
     currentDateElement.textContent = currentDisplayMonth.toLocaleDateString('tr-TR', {
