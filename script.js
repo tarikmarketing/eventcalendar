@@ -2,9 +2,11 @@ let events = {};
 let currentDate = new Date();
 let currentDisplayMonth = new Date();
 
+const EVENT_DATA_URL = 'https://cdn.jsdelivr.net/gh/tarikmarketing/eventcalendar/eventdata.json';
+
 async function fetchEvents() {
     try {
-        const response = await fetch('https://cdn.jsdelivr.net/gh/tarikmarketing/eventcalendar/eventdata.json');
+        const response = await fetch('EVENT_DATA_URL');
         events = await response.json();
         showCalendarView();
     } catch (error) {
